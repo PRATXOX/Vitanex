@@ -7,6 +7,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Onboarding from "./pages/Onboarding";
 import Login from "./pages/Login";
+import Landing from "./pages/Landing"; // Apni purani landing page file ka sahi path daal dena
+import { Navigate } from "react-router-dom"; // Agar imported nahi hai toh
 import Register from "./pages/Register";
 import UserDashboard from "./pages/user/UserDashboard";
 import ResponderDashboard from "./pages/responder/ResponderDashboard";
