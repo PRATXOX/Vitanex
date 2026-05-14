@@ -5,7 +5,7 @@ import { Toaster } from "./components/ui/sonner";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import Landing from "./pages/Landing";
+import Onboarding from "./pages/Onboarding";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/user/UserDashboard";
@@ -15,7 +15,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 function RootRedirect() {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (!user) return <Landing />;
+  if (!user) return <Onboarding />;
   const map = { admin: "/admin", hospital: "/hospital", ngo: "/ngo", user: "/user" };
   return <Navigate to={map[user.role] || "/user"} replace />;
 }
