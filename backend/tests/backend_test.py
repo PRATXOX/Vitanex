@@ -5,7 +5,7 @@ import uuid
 import pytest
 import requests
 
-BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://hospital-hub-143.preview.emergentagent.com").rstrip("/")
+BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://vitanex-b.vercel.app/").rstrip("/")
 API = f"{BASE_URL}/api"
 
 CREDS = {

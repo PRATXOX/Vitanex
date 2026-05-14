@@ -569,19 +569,19 @@ async def seed():
 async def on_startup():
     await seed()
     # write test credentials
-    try:
-        Path("/app/memory").mkdir(exist_ok=True)
-        Path("/app/memory/test_credentials.md").write_text(
-            "# Vitanex Test Credentials\n\n"
-            "| Role | Email | Password |\n|------|-------|----------|\n"
-            f"| Admin | {os.environ['ADMIN_EMAIL']} | {os.environ['ADMIN_PASSWORD']} |\n"
-            "| User | user@vitanex.io | User@123 |\n"
-            "| Hospital | hospital@vitanex.io | Hospital@123 |\n"
-            "| NGO | ngo@vitanex.io | Ngo@123 |\n\n"
-            "Auth endpoints: POST /api/auth/register, /api/auth/login, /api/auth/logout, GET /api/auth/me\n"
-        )
-    except Exception:
-        pass
+    # try:
+    #     Path("/app/memory").mkdir(exist_ok=True)
+    #     Path("/app/memory/test_credentials.md").write_text(
+    #         "# Vitanex Test Credentials\n\n"
+    #         "| Role | Email | Password |\n|------|-------|----------|\n"
+    #         f"| Admin | {os.environ['ADMIN_EMAIL']} | {os.environ['ADMIN_PASSWORD']} |\n"
+    #         "| User | user@vitanex.io | User@123 |\n"
+    #         "| Hospital | hospital@vitanex.io | Hospital@123 |\n"
+    #         "| NGO | ngo@vitanex.io | Ngo@123 |\n\n"
+    #         "Auth endpoints: POST /api/auth/register, /api/auth/login, /api/auth/logout, GET /api/auth/me\n"
+    #     )
+    # except Exception:
+    #     pass
 
 
 @app.on_event("shutdown")
