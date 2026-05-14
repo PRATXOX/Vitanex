@@ -1,0 +1,107 @@
+{
+  "theme": "LIGHT",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) + Medical Domain",
+  "reasoning": "Vitanex is a life-critical emergency response system. It requires absolute clarity, immediate trust, and visible urgency. Archetype 4 offers high-contrast functionality (Signal Red for alerts, Stark White/Grey for data legibility). Dark mode is reserved only for specific high-focus command center widgets if needed, but the primary theme is light and sterile.",
+  "typography": {
+    "fonts": {
+      "heading": "Cabinet Grotesk",
+      "body": "IBM Plex Sans",
+      "mono": "JetBrains Mono"
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter font-black text-slate-900",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-bold text-slate-900",
+      "h3": "text-xl sm:text-2xl font-semibold text-slate-800",
+      "h4": "text-lg sm:text-xl font-semibold text-slate-800",
+      "body": "text-base leading-relaxed text-slate-700",
+      "small": "text-sm text-slate-500",
+      "overline": "text-xs uppercase tracking-[0.2em] font-semibold text-slate-500"
+    }
+  },
+  "colors": {
+    "background": {
+      "default": "#FFFFFF",
+      "subtle": "#F8FAFC",
+      "dark": "#0F172A",
+      "glass": "bg-white/80 backdrop-blur-xl"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#475569",
+      "inverse": "#FFFFFF",
+      "muted": "#94A3B8"
+    },
+    "brand": {
+      "primary": "#2563EB",
+      "primary_hover": "#1D4ED8",
+      "primary_subtle": "#EFF6FF"
+    },
+    "status": {
+      "critical_red": "#DC2626",
+      "critical_bg": "#FEF2F2",
+      "critical_border": "#FECACA",
+      "warning_yellow": "#F59E0B",
+      "warning_bg": "#FFFBEB",
+      "safe_green": "#16A34A",
+      "safe_bg": "#F0FDF4"
+    }
+  },
+  "layout": {
+    "spacing_system": "Generous. p-6 or p-8 for dashboard cards to avoid data collision.",
+    "marketing_grid": "MODE A: 'Tetris' Grid. grid-cols-1 md:grid-cols-12 gap-8. Wide, asymmetric blocks.",
+    "dashboard_grid": "MODE B: 'Control Room' Grid. grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 or gap-6. Dense, screen-filling, functional.",
+    "radius": "Sharp. Use rounded-md (6px) or rounded-lg (8px) maximum. No large pill shapes unless it's a status badge."
+  },
+  "components": {
+    "surface": "Technical Grid style. Use flat backgrounds, 1px subtle borders (border-slate-200), and zero shadow for resting states. Add soft shadows on hover.",
+    "sos_button": "Massive scale. bg-red-600 hover:bg-red-700 text-white rounded-full aspect-square flex items-center justify-center shadow-[0_0_40px_rgba(220,38,38,0.4)] animate-pulse hover:animate-none transition-all.",
+    "cards": "border border-slate-200 bg-white shadow-sm. Must have internal padding of p-6.",
+    "navigation": "Sticky top nav with crystal glassmorphism (bg-white/80 backdrop-blur-xl border-b border-slate-200)."
+  },
+  "motion": {
+    "interactions": "Crisp transitions. hover:-translate-y-1 for cards. Focus rings MUST be highly visible (focus:ring-2 focus:ring-blue-500 focus:ring-offset-2).",
+    "animations": "Use ping or pulse animations exclusively for active 'Golden Hour' emergencies to draw immediate eye contact on dashboards."
+  },
+  "assets": {
+    "icons": "lucide-react (Use crisp, geometric icons)",
+    "images": [
+      {
+        "category": "landing_hero",
+        "description": "Paramedics actively treating a patient, conveying the urgency of the Golden Hour",
+        "url": "https://images.unsplash.com/photo-1775761087082-0d2c4f06496a?crop=entropy&cs=srgb&fm=jpg&q=85"
+      },
+      {
+        "category": "landing_feature_ambulance",
+        "description": "Ambulance parked on the side of road ready for dispatch",
+        "url": "https://images.unsplash.com/photo-1625258111307-3e929842d9b5?crop=entropy&cs=srgb&fm=jpg&q=85"
+      },
+      {
+        "category": "hospital_portal_bg",
+        "description": "High-tech monitoring equipment in a hospital room",
+        "url": "https://images.pexels.com/photos/13697732/pexels-photo-13697732.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "category": "dispatch_map_placeholder",
+        "description": "Digital map on tablet, simulating the live location map for NGO/Hospital portals",
+        "url": "https://images.pexels.com/photos/38271/ipad-map-tablet-internet-38271.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      },
+      {
+        "category": "abstract_data_bg",
+        "description": "ECG graph on a grid background symbolizing heartbeat and AI triage data",
+        "url": "https://images.pexels.com/photos/6203473/pexels-photo-6203473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      }
+    ]
+  },
+  "testing": {
+    "attributes": "Add data-testid to ALL interactive elements (e.g., data-testid='sos-trigger-button', data-testid='accept-alert-btn')."
+  },
+  "instructions_to_main_agent": [
+    "Build the public landing page strictly in custom HTML/Tailwind for maximum layout flexibility (bento grids, overlapping). Do NOT use Shadcn Card wrappers for marketing sections.",
+    "Use Shadcn UI components extensively for the 4 internal portals (User, Hospital, NGO, Admin) to ensure data density and functional clarity.",
+    "In the User Portal, the SOS button must be the most visually dominant element on the screen (use the 'sos_button' component spec).",
+    "In Hospital/NGO portals, ensure absolute tabular clarity using 'IBM Plex Sans' for patient vitals (HR, SpO2). Numeric data must never be ambiguous.",
+    "Color code alerts strictly: Red (Critical/Golden Hour), Yellow (Pending Review), Green (Resolved/Dispatched).",
+    "Do NOT use 'Inter' for headings. Stick to 'Cabinet Grotesk' for authoritative medical branding.",
+    "Do NOT use placeholder image URLs like via.placeholder.com. Use ONLY the exact URLs provided in the assets section."
+  ]
+}

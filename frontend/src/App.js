@@ -1,0 +1,57 @@
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "./components/ui/sonner";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import UserDashboard from "./pages/user/UserDashboard";
+import ResponderDashboard from "./pages/responder/ResponderDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+function RootRedirect() {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (!user) return <Landing />;
+  const map = { admin: "/admin", hospital: "/hospital", ngo: "/ngo", user: "/user" };
+  return <Navigate to={map[user.role] || "/user"} replace />;
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Toaster richColors position="top-right" />
+        <Routes>
+          <Route path="/" element={<RootRedirect />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user/*" element={
+            <ProtectedRoute roles={["user"]}>
+              <UserDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/hospital/*" element={
+            <ProtectedRoute roles={["hospital"]}>
+              <ResponderDashboard role="hospital" />
+            </ProtectedRoute>
+          } />
+          <Route path="/ngo/*" element={
+            <ProtectedRoute roles={["ngo"]}>
+              <ResponderDashboard role="ngo" />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/*" element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
