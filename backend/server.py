@@ -582,7 +582,10 @@ async def seed():
 
 @app.on_event("startup")
 async def on_startup():
-    await seed()
+    try:
+        await seed()
+    except Exception as e:
+        logger.error(f"Database seed failed during startup: {e}")
     # write test credentials
     # try:
     #     Path("/app/memory").mkdir(exist_ok=True)
