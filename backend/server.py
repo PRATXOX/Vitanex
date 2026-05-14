@@ -20,17 +20,31 @@ from pydantic import BaseModel, Field, EmailStr
 
 
 # ---------- CONFIG ----------
-JWT_SECRET = os.environ["JWT_SECRET"]
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger("vitanex")
+
+JWT_SECRET = os.environ.get("JWT_SECRET")
+if not JWT_SECRET:
+    logger.error("CRITICAL: JWT_SECRET environment variable is missing! Using fallback for build.")
+    JWT_SECRET = "fallback_secret_key"
+
 JWT_ALGORITHM = "HS256"
 ACCESS_MIN = 60 * 24  # 1 day
 REFRESH_DAYS = 7
 
-mongo_url = os.environ["MONGO_URL"]
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ["DB_NAME"]]
+mongo_url = os.environ.get("MONGO_URL")
+if not mongo_url:
+    logger.error("CRITICAL: MONGO_URL environment variable is missing! Database will fail.")
+    mongo_url = "mongodb://localhost:27017"
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("vitanex")
+client = AsyncIOMotorClient(mongo_url)
+
+db_name = os.environ.get("DB_NAME")
+if not db_name:
+    logger.error("CRITICAL: DB_NAME environment variable is missing! Using fallback db.")
+    db_name = "vitanex_fallback_db"
+
+db = client[db_name]
 
 app = FastAPI(title="Vitanex API")
 api = APIRouter(prefix="/api")
@@ -356,7 +370,7 @@ async def ai_summary(aid: str, user=Depends(require_roles("hospital", "ngo", "ad
 
         chat = (
             LlmChat(
-                api_key=os.environ["EMERGENT_LLM_KEY"],
+                api_key=os.environ.get("EMERGENT_LLM_KEY", ""),
                 session_id=f"alert-{aid}",
                 system_message=(
                     "You are Vitanex, an emergency triage AI for hospitals. "
