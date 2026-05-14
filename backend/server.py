@@ -599,8 +599,8 @@ app.include_router(api)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],
-    allow_origin_regex=".*",
+    allow_origins=["https://vitanexlpu.vercel.app"],
+    # allow_origin_regex=".*",
     allow_methods=["*"],
     allow_headers=["*"],
 )
