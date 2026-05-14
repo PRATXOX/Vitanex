@@ -14,12 +14,21 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function RootRedirect() {
   const { user, loading } = useAuth();
+  
   if (loading) return null;
-  if (!user) return <Onboarding />;
+
+  // 🕵️‍♂️ SECRET CHECK: Kya ye Vitanex ki Android App me khul raha hai?
+  const isAndroidApp = navigator.userAgent.includes("VitanexAndroidApp");
+
+  if (!user) {
+    // Agar Android App hai toh Onboarding Slider dikhao, warna normal website Landing page dikhao
+    return isAndroidApp ? <Onboarding /> : <Landing />;
+  }
+  
+  // Agar login ho chuka hai, toh direct dashboard par bhejo
   const map = { admin: "/admin", hospital: "/hospital", ngo: "/ngo", user: "/user" };
   return <Navigate to={map[user.role] || "/user"} replace />;
 }
-
 export default function App() {
   return (
     <AuthProvider>
