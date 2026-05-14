@@ -16,6 +16,7 @@ import jwt
 from fastapi import FastAPI, APIRouter, HTTPException, Request, Response, Depends
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+import certifi
 from pydantic import BaseModel, Field, EmailStr
 
 
@@ -37,7 +38,7 @@ if not mongo_url:
     logger.error("CRITICAL: MONGO_URL environment variable is missing! Database will fail.")
     mongo_url = "mongodb://localhost:27017"
 
-client = AsyncIOMotorClient(mongo_url)
+client = AsyncIOMotorClient(mongo_url, tlsCAFile=certifi.where())
 
 db_name = os.environ.get("DB_NAME")
 if not db_name:
